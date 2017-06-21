@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Users\User;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginForm;
+use App\Users\Collections\UserDetails;
 use App\Http\Requests\Auth\RegisterForm;
 use Tymon\JSTAuth\Exceptions\JWTException;
 
@@ -22,9 +23,10 @@ class AuthController extends Controller
     public function register(RegisterForm $request)
     {
 	    $user = User::create([
+            'customer_id' => $request->customer_id,
 	    	'name' => $request->name,
 	    	'email' => $request->email,
-	    	'password' => bcrypt($request->password),
+	    	'password' => $request->password,
 	    ]);
 
 	    $token = $this->auth->attempt($request->only('email', 'password'));
@@ -70,10 +72,10 @@ class AuthController extends Controller
     	return response(null, 200);
     }
 
-    public function user(Request $request)
+    public function user(Request $request, UserDetails $details)
     {
     	return response()->json([
-	    	'user' => $request->user()
+	    	'user' => $details->format($request->user())
 	    ]);
     }
 }
