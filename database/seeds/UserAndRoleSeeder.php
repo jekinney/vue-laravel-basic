@@ -15,8 +15,9 @@ class UserAndRoleSeeder extends Seeder
     {
     	// set default roles array
         $roles = [
-        	['id' => 1,  'customer_id' => 1, 'slug' => 'lms-portal-admin', 'name' => 'LMS Portal Admin', 'description' => 'Full system admin'],
-        	['id' => 2, 'customer_id' => 1, 'slug' => 'lms', 'name' => 'LMS', 'description' => 'Basic LMS user'],
+            ['id' => 1,  'customer_id' => 1, 'slug' => 'msd-full-admin', 'name' => 'MSD Full Admin', 'description' => 'Full system admin from Mid-States dist.'],
+        	['id' => 2,  'customer_id' => 1, 'slug' => 'msd-portal-admin', 'name' => 'MSD Portal Admin', 'description' => 'Portal admin from Mid-States dist.'],
+        	['id' => 3, 'customer_id' => 1, 'slug' => 'msd-employee', 'name' => 'MSD Employee', 'description' => 'Mid-States Dist. employee.'],
         ];
 
         // loop through each role and create in database
@@ -28,8 +29,8 @@ class UserAndRoleSeeder extends Seeder
         $admin = User::create([
         	'id' => 1,
         	'customer_id' => 1,
-        	'name' => 'LMS Admin',
-        	'email' => 'admin@lms.com',
+        	'name' => 'MSD Admin',
+        	'email' => 'admin@msdist.com',
         	'password' => 'secret',
         ]);
 

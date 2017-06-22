@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Customers\Customer;
+use App\Users\User;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class UsersController extends Controller
 {
+    protected $user;
+
+    function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->user->getListOfAll());
     }
 
     /**
@@ -41,10 +48,10 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Customers\Customer  $customer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Customer $customer)
+    public function show($id)
     {
         //
     }
@@ -52,10 +59,10 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Customers\Customer  $customer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customer)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +71,10 @@ class CustomerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Customers\Customer  $customer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +82,10 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Customers\Customer  $customer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
+    public function destroy($id)
     {
         //
     }

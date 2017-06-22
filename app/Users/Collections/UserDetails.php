@@ -7,10 +7,13 @@ class UserDetails
 	public function format($user)
 	{
 		return [
-			'id' => $user->id,
+			'uid' => $user->uid,
 			'name' => $user->name,
 			'email' => $user->email,
-			'roles' => $this->rolesRelation($user->roles)
+			'customer_name' => $user->customer->name,
+			'customer_uid' => $user->customer->uid,
+			'roles' => $this->rolesRelation($user->roles),
+			'status' => $user->deleted_at? 'Deactivated':'Active',
 		];
 	}
 

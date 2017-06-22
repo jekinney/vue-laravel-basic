@@ -19,6 +19,7 @@ class CreateRolesTable extends Migration
             $table->string('slug');
             $table->string('name');
             $table->string('description');
+            $table->boolean('is_deletable')->default(true);
             $table->timestamps();
         });
     }

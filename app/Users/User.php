@@ -2,13 +2,13 @@
 
 namespace App\Users;
 
+use App\Users\Collections\UserDetails;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -36,6 +36,21 @@ class User extends Authenticatable
         });
     }
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'uid';
+    }
+
+    /**
+     *  Always hash incoming passwords
+     *
+     * @return string
+     */
     public function setPasswordAttribute($password)
     {
         return $this->attributes['password'] = bcrypt($password);
@@ -57,5 +72,21 @@ class User extends Authenticatable
     public function roles() 
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
+    public function customer() {
+        return $this->belongsTo(\App\Customers\Customer::class);
+    }
+
+    // Queries
+    /**
+     *  List of all users for msd admin
+     */
+    public function getListOfAll()
+    {
+        return $this->with('roles', 'customer')->get()->map(function($user, $key) {
+            $details = new UserDetails();
+            return $details->format($user);
+        });
     }
 }

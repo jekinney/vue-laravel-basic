@@ -3,10 +3,13 @@
 namespace App\Customers;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Customers\Collections\CustomerDetails;
 
 class Customer extends Model
 {
     protected $guarded = [];
+
+    protected $dates = ['deleted_at'];
 
     /**
      * Bootstrap any application services.
@@ -18,6 +21,16 @@ class Customer extends Model
         Customer::creating(function ($customer) {
             $customer->uid = self::generate();
         });
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'uid';
     }
 
     protected static function generate()
@@ -35,8 +48,22 @@ class Customer extends Model
     	return $this->belongsToMany(AuthType::class, 'auth_credentials');
     }
 
+    public function users()
+    {
+        return $this->hasMany(\App\Users\User::class);
+    }
+
     public function roles()
     {
     	return $this->hasMany(\App\Users\Role::class);
+    }
+
+    // queries 
+    public function listOfAll()
+    {
+        $this->with('roles')->withCount('users')->get()->map(function($customer, $key) {
+            $details = new CustomerDetails();
+            return $details->format($customer);
+        });
     }
 }
