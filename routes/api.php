@@ -2,19 +2,50 @@
 
 use Illuminate\Http\Request;
 
-Route::post('/register', 'Auth\AuthController@register');
+// requires cors header
 Route::post('/login', 'Auth\AuthController@login');
 Route::post('/logout', 'Auth\AuthController@logout');
 Route::post('/password/reset', 'Auth\AuthController@sendReset');
 
+// Requires Token (jwt)
 Route::group(['middleware' => 'jwt.auth'], function() {
+
+	Route::post('/register', 'Auth\AuthController@register');
 	Route::get('/user', 'Auth\AuthController@user');
 
-	Route::get('/users', 'UsersController@index');
-	Route::get('/user/{user}', 'UsersController@show');
-	Route::get('/user/{user}/edit', 'UsersController@edit');
+	Route::group(['prefix' => 'user', 'namespace' => 'Users'], function() {
+		Route::get('/', 'UsersController@index');
+		Route::get('/{user}', 'UsersController@show');
+		Route::get('/{user}/edit', 'UsersController@edit');
+		Route::post('/', 'UsersController@create');
+		Route::patch('/{user}', 'UsersController@update');
+		Route::delete('/{user}', 'UsersController@destroy');
 
-	Route::get('/customers', 'CustomersController@index');
-	Route::get('/customer/{customer}', 'UsersController@show');
-	Route::get('/customer/{customer}/edit', 'UsersController@edit');
+		Route::group(['prefix' => 'role'], function() {
+			Route::get('/', 'RolesController@index');
+			Route::get('/{user}', 'RolesController@show');
+			Route::get('/{user}/edit', 'RolesController@edit');
+			Route::post('/', 'RolesController@create');
+			Route::patch('/{user}', 'RolesController@update');
+			Route::delete('/{user}', 'RolesController@destroy');
+		});
+	});
+
+	Route::group(['prefix' => 'customer', 'namespace' => 'Customers'], function() {
+		Route::get('/', 'CustomersController@index');
+		Route::get('/{customer}', 'CustomersController@show');
+		Route::get('/{customer}/edit', 'CustomersController@edit');
+		Route::post('/', 'CustomersController@create');
+		Route::patch('/{customer}', 'CustomersController@update');
+		Route::delete('/{customer}', 'CustomersController@destroy');
+
+		Route::group(['prefix' => '{customer}/department'], function() {
+			Route::get('/', 'DeparmentsController@index');
+			Route::get('/{department}', 'DepartmentsController@show');
+			Route::get('/{department}/edit', 'DepartmentsController@edit');
+			Route::post('/', 'DepartmentsController@create');
+			Route::patch('/{department}', 'DepartmentsController@update');
+			Route::delete('/{department}', 'DepartmentsController@destroy');
+		});
+	});
 });

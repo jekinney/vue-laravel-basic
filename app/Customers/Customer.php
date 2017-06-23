@@ -4,6 +4,7 @@ namespace App\Customers;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Customers\Collections\CustomerDetails;
+use App\Customers\Collections\CustomerEditDetails;
 
 class Customer extends Model
 {
@@ -61,9 +62,16 @@ class Customer extends Model
     // queries 
     public function listOfAll()
     {
-        $this->with('roles')->withCount('users')->get()->map(function($customer, $key) {
-            $details = new CustomerDetails();
-            return $details->format($customer);
-        });
+        return CustomerDetails::format($this->with('roles', 'users')->get());
+    }
+
+    public function show()
+    {
+        return CustomerDetails::format($this->load('roles', 'users'));
+    }
+
+    public function edit()
+    {
+        return CustomerEditDetails::format($this);
     }
 }

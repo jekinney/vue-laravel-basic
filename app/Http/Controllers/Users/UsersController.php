@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Users;
 
-use App\Customers\Customer;
+use App\Users\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class CustomersController extends Controller
+class UsersController extends Controller
 {
-    protected $customer;
+    protected $user;
 
-    function __construct(Customer $customer)
+    function __construct(User $user)
     {
-        $this->customer = $customer;
+        $this->user = $user;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +22,7 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        return response()->json($this->customer->listOfAll());
+        return response()->json($this->user->getListOfAll());
     }
 
     /**
@@ -47,10 +49,10 @@ class CustomersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Customers\Customer  $customer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Customer $customer)
+    public function show($id)
     {
         //
     }
@@ -58,10 +60,10 @@ class CustomersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Customers\Customer  $customer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customer)
+    public function edit($id)
     {
         //
     }
@@ -70,10 +72,10 @@ class CustomersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Customers\Customer  $customer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -81,10 +83,10 @@ class CustomersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Customers\Customer  $customer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
+    public function destroy($id)
     {
         //
     }

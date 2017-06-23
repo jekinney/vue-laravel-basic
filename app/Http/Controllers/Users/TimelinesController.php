@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Users;
 
-use App\Customers\AuthType;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class AuthTypeController extends Controller
+class TimelineController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class AuthTypeController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'timelines' => ])
     }
 
     /**
@@ -41,10 +42,10 @@ class AuthTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Customers\AuthType  $authType
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(AuthType $authType)
+    public function show($id)
     {
         //
     }
@@ -52,10 +53,10 @@ class AuthTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Customers\AuthType  $authType
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(AuthType $authType)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +65,10 @@ class AuthTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Customers\AuthType  $authType
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AuthType $authType)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +76,10 @@ class AuthTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Customers\AuthType  $authType
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AuthType $authType)
+    public function destroy($id)
     {
         //
     }

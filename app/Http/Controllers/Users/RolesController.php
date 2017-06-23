@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Users;
 
-use App\Customers\AuthCredential;
+use App\Users\Role;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class AuthCredentialController extends Controller
+class RolesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class AuthCredentialController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Customers\AuthCredential  $authCredential
+     * @param  \App\Users\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(AuthCredential $authCredential)
+    public function show(Role $role)
     {
         //
     }
@@ -52,10 +53,10 @@ class AuthCredentialController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Customers\AuthCredential  $authCredential
+     * @param  \App\Users\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(AuthCredential $authCredential)
+    public function edit(Role $role)
     {
         //
     }
@@ -64,10 +65,10 @@ class AuthCredentialController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Customers\AuthCredential  $authCredential
+     * @param  \App\Users\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AuthCredential $authCredential)
+    public function update(Request $request, Role $role)
     {
         //
     }
@@ -75,10 +76,10 @@ class AuthCredentialController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Customers\AuthCredential  $authCredential
+     * @param  \App\Users\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AuthCredential $authCredential)
+    public function destroy(Role $role)
     {
         //
     }
