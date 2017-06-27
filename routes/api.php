@@ -10,8 +10,8 @@ Route::post('/password/reset', 'Auth\AuthController@sendReset');
 // Requires Token (jwt)
 Route::group(['middleware' => 'jwt.auth'], function() {
 
-	Route::post('/register', 'Auth\AuthController@register');
-	Route::get('/user', 'Auth\AuthController@user');
+	//Route::post('/register', 'Auth\AuthController@register');
+	Route::get('/auth/user', 'Auth\AuthController@user');
 
 	Route::group(['prefix' => 'user', 'namespace' => 'Users'], function() {
 		Route::get('/', 'UsersController@index');
@@ -38,6 +38,15 @@ Route::group(['middleware' => 'jwt.auth'], function() {
 		Route::post('/', 'CustomersController@create');
 		Route::patch('/{customer}', 'CustomersController@update');
 		Route::delete('/{customer}', 'CustomersController@destroy');
+
+		Route::group(['prefix' => '{customer}/user'], function() {
+			Route::get('/', 'UsersController@index');
+			Route::get('/{user}', 'UsersController@show');
+			Route::get('/{user}/edit', 'UsersController@edit');
+			Route::post('/', 'UsersController@create');
+			Route::patch('/{user}', 'UsersController@update');
+			Route::delete('/{user}', 'UsersController@destroy');
+		});
 
 		Route::group(['prefix' => '{customer}/department'], function() {
 			Route::get('/', 'DeparmentsController@index');

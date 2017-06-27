@@ -29,7 +29,8 @@ class UserAndRoleSeeder extends Seeder
         $admin = User::create([
         	'id' => 1,
         	'customer_id' => 1,
-        	'name' => 'MSD Admin',
+        	'first_name' => 'MSD',
+            'last_name' =>  'Admin',
         	'email' => 'admin@msdist.com',
         	'password' => 'secret',
         ]);

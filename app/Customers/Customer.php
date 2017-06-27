@@ -2,15 +2,19 @@
 
 namespace App\Customers;
 
+use App\Users\Collections\UserDetails;
 use Illuminate\Database\Eloquent\Model;
 use App\Customers\Collections\CustomerDetails;
 use App\Customers\Collections\CustomerEditDetails;
+use App\Customers\Collections\CustomersUserDetails;
 
 class Customer extends Model
 {
     protected $guarded = [];
 
     protected $dates = ['deleted_at'];
+
+    protected $with = ['roles'];
 
     /**
      * Bootstrap any application services.
@@ -44,11 +48,6 @@ class Customer extends Model
     }
 
     // Relationships
-    public function authTypes() 
-    {
-    	return $this->belongsToMany(AuthType::class, 'auth_credentials');
-    }
-
     public function users()
     {
         return $this->hasMany(\App\Users\User::class);
@@ -59,19 +58,37 @@ class Customer extends Model
     	return $this->hasMany(\App\Users\Role::class);
     }
 
+    public function ldap()
+    {
+        return $this->hasOne(Ldap::class);
+    }
+
+    public function departments()
+    {
+        return $this->hasMany(Department::class);
+    }
+
     // queries 
     public function listOfAll()
     {
-        return CustomerDetails::format($this->with('roles', 'users')->get());
+        return CustomerDetails::format($this->with('users')->get());
     }
 
     public function show()
     {
-        return CustomerDetails::format($this->load('roles', 'users'));
+        $customer = new CustomerDetails();
+        return $customer->format($this->load('users'));
     }
 
     public function edit()
     {
-        return CustomerEditDetails::format($this);
+        $customer = new CustomerEditDetails();
+        return $customer->format($this);
+    }
+
+    public function listOfUsers()
+    {
+        $user = new CustomersUserDetails();
+        return $user->format($this->users);
     }
 }

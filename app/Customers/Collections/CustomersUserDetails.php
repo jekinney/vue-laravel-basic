@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Users\Collections;
+namespace App\Customers\Collections;
 
 use App\Collections\BaseCollection;
+use App\Users\Collections\RoleDetails;
 
-class UserDetails extends BaseCollection
+class CustomersUserDetails extends BaseCollection
 {
-	public function setData($user)
+	protected function setData($user)
 	{
 		$details = new RoleDetails();
 
-		return [
+		return  [
 			'uid' => $user->uid,
 			'name' => $user->first_name.' '.$user->last_name,
 			'email' => $user->email,
-			'customer_name' => $user->customer->name,
-			'customer_uid' => $user->customer->uid,
+			'created' => $user->created_at->toDateTimeString(),
 			'roles' => $details->format($user->roles),
 			'status' => $user->deleted_at? 'Deactivated':'Active',
 		];

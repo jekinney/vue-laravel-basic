@@ -2,11 +2,12 @@
 
 namespace App\Customers\Collections;
 
+use App\Conllections\BaseCollection;
 use App\Users\Collections\RoleEditDetails;
 
-class CustomerEditDetails
+class CustomerEditDetails extends BaseController;
 {
-	public static function format($customer)
+	public function format($customer)
 	{
 		$details = new RoleEditDetails();
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Customers;
+namespace App\Users;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AuthCredential extends Model
+class Contact extends Model
 {
     //
 }

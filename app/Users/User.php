@@ -24,6 +24,8 @@ class User extends Authenticatable
      */
     protected $dates = ['deleted_at'];
 
+    protected $with = ['roles'];
+
     /**
      * Bootstrap any application services.
      *
@@ -84,9 +86,7 @@ class User extends Authenticatable
      */
     public function getListOfAll()
     {
-        return $this->with('roles', 'customer')->get()->map(function($user, $key) {
-            $details = new UserDetails();
-            return $details->format($user);
-        });
+        $details = new UserDetails();
+        return $details->format($this->with('roles', 'customer')->get());
     }
 }

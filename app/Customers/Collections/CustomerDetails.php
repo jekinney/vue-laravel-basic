@@ -2,22 +2,12 @@
 
 namespace App\Customers\Collections;
 
+use App\Collections\BaseCollection;
 use App\Users\Collections\RoleDetails;
 
-class CustomerDetails
+class CustomerDetails extends BaseCollection
 {
-	public static function format($customer)
-	{
-		if(class_basename($customer) == 'Collection') {
-			foreach($customer as $cust) {
-				$customers[] =  self::setData($cust);
-			}
-			return $customers;
-		} 
-		return self::setData($customer);	
-	}
-
-	protected static function setData($customer)
+	protected function setData($customer)
 	{
 		$details = new RoleDetails();
 
