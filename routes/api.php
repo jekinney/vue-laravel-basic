@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 
+Route::get('/ldap', 'LdapController@index');
 // requires cors header
 Route::post('/login', 'Auth\AuthController@login');
 Route::post('/logout', 'Auth\AuthController@logout');

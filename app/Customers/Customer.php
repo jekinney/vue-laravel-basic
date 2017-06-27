@@ -48,9 +48,17 @@ class Customer extends Model
     }
 
     // Relationships
+     /**
+     * Get all of the Customer's users.
+     */
     public function users()
     {
-        return $this->hasMany(\App\Users\User::class);
+        return $this->morphMany(\App\Users\User::class, 'userable');
+    }
+
+    public function contacts()
+    {
+        return $this->morphMany(\App\Users\Contact::class, 'contactable');
     }
 
     public function roles()
@@ -69,9 +77,15 @@ class Customer extends Model
     }
 
     // queries 
+    public function authByLdap()
+    {
+        
+    }
+
     public function listOfAll()
     {
-        return CustomerDetails::format($this->with('users')->get());
+        $customers = new CustomerDetails();
+        return $customers->format($this->with('users')->get());
     }
 
     public function show()
@@ -90,5 +104,11 @@ class Customer extends Model
     {
         $user = new CustomersUserDetails();
         return $user->format($this->users);
+    }
+
+    protected function ldapCredentials()
+    {
+        $ldap = new LdapFormatedConnection();
+        return $ldap->format($this->ldap);
     }
 }

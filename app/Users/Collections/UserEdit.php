@@ -4,7 +4,7 @@ namespace App\Users\Collections;
 
 use App\Collections\BaseCollection;
 
-class UserDetails extends BaseCollection
+class UserEdit extends BaseCollection
 {
 	public function setData($user)
 	{

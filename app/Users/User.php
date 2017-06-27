@@ -2,6 +2,8 @@
 
 namespace App\Users;
 
+use App\Users\Collections\UserShow;
+use App\Users\Collections\UserEdit;
 use App\Users\Collections\UserDetails;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -76,8 +78,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class)->withTimestamps();
     }
 
-    public function customer() {
-        return $this->belongsTo(\App\Customers\Customer::class);
+    public function userable() {
+        return $this->morphTo();
     }
 
     // Queries
@@ -87,6 +89,18 @@ class User extends Authenticatable
     public function getListOfAll()
     {
         $details = new UserDetails();
-        return $details->format($this->with('roles', 'customer')->get());
+        return $details->format($this->with('userable')->get());
+    }
+
+    public function show()
+    {
+        $show = new UserShow();
+        return $show->format($this->load('userable'));
+    }
+
+    public function edit()
+    {
+        $edit = new UserEdit();
+        return $edit->format($this->load('userable'));
     }
 }

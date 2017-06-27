@@ -12,9 +12,31 @@ class LdapController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Ldap $ldap)
     {
-        //
+        foreach($ldap->get() as $connection) {
+            $results[$connection->customer_uid] = [
+                    'auto_connect' => false,
+                    'connection' => Adldap\Connections\Ldap::class,
+                    'schema' => Adldap\Schemas\ActiveDirectory::class,
+                    'connection_settings' => [
+                        'account_prefix' => $connection->prefix,
+                        'account_suffix' => $connection->suffex,
+                        'domain_controllers' => explode(' ', $connection->controllers),
+                        'port' => $connection->port,
+                        'timeout' => $connection->timeout,
+                        'base_dn' => $connection->base_dn,
+                        'admin_account_suffix' => $connection->admin_suffex,
+                        'admin_username' => $connection->admin_username,
+                        'admin_password' => $connection->password,
+                        'follow_referrals' => false,
+                        'use_ssl' => false,
+                        'use_tls' => false,
+                    ],
+            ];
+        }
+        dd($results);
+        return $results;
     }
 
     /**

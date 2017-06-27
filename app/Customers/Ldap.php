@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ldap extends Model
 {
-    //
+    protected $guarded = [];
 }

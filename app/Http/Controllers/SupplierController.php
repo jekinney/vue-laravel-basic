@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Users;
+namespace App\Http\Controllers;
 
-use App\Users\User;
+use App\Suppliers\Supplier;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class UsersController extends Controller
+class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user)
+    public function index()
     {
-        return response()->json($user->getListOfAll());
+        //
     }
 
     /**
@@ -42,33 +41,33 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  string Uid for User Model
+     * @param  \App\Suppliers\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Supplier $supplier)
     {
-        return response()->json($user->show());
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  string $uid
+     * @param  \App\Suppliers\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Supplier $supplier)
     {
-        return response()->json($user->edit());
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Suppliers\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Supplier $supplier)
     {
         //
     }
@@ -76,10 +75,10 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Suppliers\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Supplier $supplier)
     {
         //
     }

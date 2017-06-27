@@ -17,7 +17,7 @@ class CustomerAuthTypeSeeder extends Seeder
         $types = [
         	['id' => 1, 'name' => 'Traditional', 'description' => 'Manually set you your users as needed.'],
         	['id' => 2, 'name' => 'Upload File', 'description' => 'Upload a CSV or Excel file with all your users information.'],
-        	['id' => 3, 'name' => 'Loacl Active Directory', 'description' => 'Import your users from an Microsoft Active Directory located loaclly.'],
+        	['id' => 3, 'name' => 'On premises Active Directory', 'description' => 'Import your users from an Microsoft Active Directory located loaclly.'],
         	['id' => 4, 'name' => 'Azure Active Directory', 'description' => 'Import your users from an Microsoft Azure Active Directory hosted on Azure.'],
         	['id' => 5, 'name' => 'Office 365', 'description' => 'Import users from Microsoft Office 365 Single Sign On feature.']
         ];
@@ -27,14 +27,5 @@ class CustomerAuthTypeSeeder extends Seeder
         {
         	AuthType::create($type);
         }
-
-        // create mid-states dist as default company/customer
-        $msd = Customer::create([
-        	'name' => 'Mid-States Distributing',
-            'Title' => 'Mid-States Distributing',
-            'tag_line' => 'The Heart and Soul of Farm, Ranch and Home',
-            'base_code' => 'msd',
-            'base_email' => 'msdist.com',
-        ]);
     }
 }
